@@ -7,6 +7,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import productsData from "../products/productsData";
+import { useDispatch, useSelector } from "react-redux";
 
 
 export default function ProductList() {
@@ -14,6 +15,10 @@ export default function ProductList() {
   const handleChange = (event, value) => {
     setPage(value);
   };
+
+  /* const dispatch = useDispatch() */
+
+  /* const itemsAdded1 = useSelector() */
 
   const [itemsAdded, setItemsAdded] = useState(0);
 
