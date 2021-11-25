@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    itemsAdded: "",
+    itemsAdded: 0,
     /* selectedItem: "", */
 /*     isLoading: false,
     hasError: false */
@@ -14,7 +14,7 @@ const initialState = {
           itemsAddedCounter: (state) => {
               state.itemsAdded += 1; 
           }
-      }
+      },
   });
 
   export const { itemsAddedCounter } = itemsSlice.actions;

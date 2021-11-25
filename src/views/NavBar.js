@@ -6,10 +6,12 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+//import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import {Counter} from "../Redux/itemsSelectors";
 
 export default function NavBar() {
-    const [items, setItems] = useState(0);
+  const itemsAdded = useSelector(Counter);
     return (
         <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="transparent">
@@ -36,7 +38,7 @@ export default function NavBar() {
           <Typography variant="overline" component="div" sx={{ flexGrow: 1 }}>
             <Link style={{ textDecoration: "none" }} to="/cart">
               <div>
-                  Cart {items}
+                  Cart {itemsAdded}
                   <img src={"https://image.flaticon.com/icons/png/512/107/107831.png"} alt="LogoCart" style={{with: "25px", height: "20px", alignSelf: "center"}}/>
               </div>
             </Link>

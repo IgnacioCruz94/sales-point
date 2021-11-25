@@ -5,40 +5,61 @@ import Container from "@mui/material/Container";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import productsData from "../products/productsData";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useDispatch } from "react-redux";
+import {itemsAddedCounter} from "../Redux/itemsAddedSlice";
+import { useHistory, useLocation } from "react-router";
+import { useEffect } from "react";
 
 export default function ProductList() {
-  const [page, setPage] = useState(1);
-  const handleChange = (event, value) => {
-    setPage(value);
-  };
+    const history = useHistory();
+    const location = useLocation();
+    const dispatch = useDispatch();
+    const [page, setPage] = useState(1);
+    const [newArray, setNewArray] = useState([]);
+    const itemsMaxPerPage = 10;
+    const totalPages = Math.ceil(productsData.length/itemsMaxPerPage);
 
-  /* const dispatch = useDispatch() */
+    const currentPage = useMemo(
+        () => new URLSearchParams(location.search).get("page"),
+        [location.search]
+    );
+    //const [page, setPage] = React.useState(currentPage ? Number(currentPage) : 1);
 
-  /* const itemsAdded1 = useSelector() */
+    useEffect(() => {
+        if (Number(currentPage) === 1) {
+        const Arraynew = productsData.slice(0,10);
+        setNewArray(Arraynew); 
+        } else {
+        const Arraynew1 = productsData.slice(10*Number(currentPage)-10,10*Number(currentPage));
+        setNewArray(Arraynew1);
+        }
+        history.push(`${location.pathname}?page=${page}`);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[currentPage]);
 
-  const [itemsAdded, setItemsAdded] = useState(0);
+    const handleChange = (event, value) => {
+        history.push(`${location.pathname}?page=${value}`);
+        setPage(value);
+    };
 
-  const handleAddButton = () => {
-    setItemsAdded(itemsAdded + 1);
-  };
-
-  
+    const handleAddButton = () => {
+        dispatch(itemsAddedCounter());
+    };
+    
     return (
         <>
         <Container
-        sx={{
-          display: "grid",
-          justifyItems: "center",
-          paddingTop: "30px"
-        }}
-      >
+            sx={{
+                display: "grid",
+                justifyItems: "center",
+                paddingTop: "30px"
+            }}
+        >
         <Stack spacing={2}>
           <Pagination
-            count={productsData.length}
+            count={totalPages}
             page={page}
             onChange={handleChange}
           />
@@ -53,8 +74,8 @@ export default function ProductList() {
           justifyContent: "center",
           paddingTop: "30px"
         }}
-      >
-        {productsData.map((item, index) => (
+        >
+        {newArray.map((item, index) => (
           <Card
             key={item.id}
             sx={{
@@ -66,10 +87,10 @@ export default function ProductList() {
             <CardActionArea>
               <CardContent sx={{ justifyContent: "center" }}>
                 <Typography variant="body1" color="text.secondary">
-                  {productsData[index].productName}
+                  {item.productName}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {`$${productsData[index].price}`}
+                  {`$${item.price}`}
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -85,7 +106,7 @@ export default function ProductList() {
                       justifyContent: "center"
                     }
                   }}
-                  onClick={() => handleAddButton}
+                  onClick={handleAddButton}
                 >
                   Add
                 </Button>
