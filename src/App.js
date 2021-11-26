@@ -1,10 +1,10 @@
 import './App.css';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Products from "./views/Products";
-import Header  from './views/header';
-import Footer from "./views/Footer"
+import Header  from './components/header';
+import Footer from "./components/Footer"
 import Home from './views/Home';
-import NavBar from './views/NavBar';
+import NavBar from './components/NavBar';
 import Invoices from "./views/Invoices";
 
 function App() {
