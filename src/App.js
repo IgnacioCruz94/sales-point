@@ -1,15 +1,4 @@
 import './App.css';
-<<<<<<< HEAD
-/* import Cart from './views/Cart'; */
-/* import Products from './views/Products'; */
-import Invoices from './views/Invoices';
-function App() {
-  return (
-    <div className="App">
-      <Invoices/>
-      
-    </div>
-=======
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Products from "./views/Products";
 import Header  from './components/header';
@@ -30,7 +19,6 @@ function App() {
     </Switch>
     <Footer />
     </BrowserRouter>
->>>>>>> bd16789f1a5ffe5506323e550b0b6f13b4d77583
   );
 }
 export default App;
