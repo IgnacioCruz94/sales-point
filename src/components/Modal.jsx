@@ -22,8 +22,8 @@ export default function BasicModal() {
   const handleClose = () => setOpen(false);
 
   return (
-    <div style={{margin:'0px 30px 30px 30px'}}>
-      <Button onClick={handleOpen}>Finish</Button>
+    <div style={{margin:'0px 30px 30px 30px', display: "flex", justifyContent: "center"}}>
+      <Button onClick={handleOpen} sx={{alignSelf: "center"}}>Finish</Button>
       <Modal
         open={open}
         onClose={handleClose}

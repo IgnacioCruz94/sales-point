@@ -3,13 +3,11 @@ import ModalCart from '../components/Modal';
 import './Cart.css';
 function Cart() {
   return (
-    <div>
-        <h1>Cart Page</h1>
+    <div >
         <section>
             <Table/>
         </section>
-        <ModalCart/>
-      
+        <ModalCart/>      
     </div>
   );
 }
