@@ -3,13 +3,14 @@ import TextField from '@mui/material/TextField';
 import {Button} from '@mui/material';
 
 function LoginForm({productsAdded}) {
-
+    
     const[details,setDetails]=useState({name:"", price:""});
  
     const submitHandler = e =>{
         e.preventDefault();
         productsAdded(details);
     }
+    
   return (
         <form onSubmit = {submitHandler}>
             <div className="form-inner" style={{

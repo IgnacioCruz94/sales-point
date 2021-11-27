@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
@@ -59,10 +59,6 @@ const productsAdded = [[
   
 });
 
-
-const total = productsAdded.map(({ price,quantity }) => price*quantity).reduce((sum, i) => sum + i, 0);
-
-
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
@@ -79,12 +75,12 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell component="th" scope="row" align="center"> 
           {row.id}
         </TableCell>
-        <TableCell align="right">{row.date}</TableCell>
-        <TableCell align="right">{row.status}</TableCell>
-        <TableCell align="right"><Button>Cancel Purchase</Button></TableCell>
+        <TableCell align="center">{row.date}</TableCell>
+        <TableCell align="center">{row.status}</TableCell>
+        <TableCell align="center"><Button>Cancel Purchase</Button></TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -97,7 +93,7 @@ function Row(props) {
                 <TableHead>
                   <TableRow>
                     <TableCell>Product</TableCell>
-                    <TableCell>Quantity</TableCell>
+                    <TableCell align="center">Quantity</TableCell>
                     <TableCell align="right">Total price ($)</TableCell>
                   </TableRow>
                 </TableHead>
@@ -107,7 +103,7 @@ function Row(props) {
                       <TableCell component="th" scope="row">
                         {historyRow.name}
                       </TableCell>
-                      <TableCell>{historyRow.quantity}</TableCell>
+                      <TableCell align="center">{historyRow.quantity}</TableCell>
                       <TableCell align="right">{historyRow.price * historyRow.quantity }</TableCell>
                     </TableRow>
                   ))}
@@ -153,10 +149,10 @@ export default function CollapsibleTable() {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>ID</TableCell>
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Status</TableCell>
-            <TableCell align="right">Options</TableCell>
+            <TableCell align="center">ID</TableCell>
+            <TableCell align="center">Date</TableCell>
+            <TableCell align="center">Status</TableCell>
+            <TableCell align="center">Options</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
