@@ -8,7 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 //import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import {Counter} from "../Redux/itemsSelectors";
+import {Counter} from "../Redux/selectors";
 
 export default function NavBar() {
   const itemsAdded = useSelector(Counter);
@@ -62,20 +62,6 @@ export default function NavBar() {
               Dashboard
             </Link>
           </Typography>
-          {/* <Link style={{ textDecoration: "none" }} to="/">
-          <Button
-                color="success"
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "success.dark",
-                    color: "white",
-                    opacity: [0.8, 0.8, 0.7]
-                  }
-                }}
-              >
-                Log in
-              </Button>
-          </Link> */}
         </Toolbar>
       </AppBar>
     </Box>
