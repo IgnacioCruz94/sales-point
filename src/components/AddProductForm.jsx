@@ -1,14 +1,18 @@
 import React,{useState} from 'react';
 import TextField from '@mui/material/TextField';
 import {Button} from '@mui/material';
+import { AddProduct } from '../Redux/productsSlice';
+import { useDispatch } from 'react-redux';
 
 function LoginForm({productsAdded}) {
     
-    const[details,setDetails]=useState({name:"", price:""});
+    const[details,setDetails] = useState({ name: "", price: "" } );
+    const dispatch = useDispatch();
  
     const submitHandler = e =>{
         e.preventDefault();
         productsAdded(details);
+        dispatch(AddProduct(details));
     }
     
   return (

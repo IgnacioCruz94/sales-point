@@ -21,9 +21,8 @@ export default function BasicModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const productsAdded = details =>{
-        console.log(details)
         setOpen(false)
-        }
+  }
 
   return (
     <div style={{margin:'0px 30px 30px 30px'}}>
