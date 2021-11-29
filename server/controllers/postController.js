@@ -5,9 +5,13 @@ const createProduct = async (req, res) => {
     const { name, price } = req.body;
 
     try {
+        const isProductAlreadyAdded = await products.find({name: name}).exec();
+        if(isProductAlreadyAdded.length > 0){
+            return res.status(500).send('error, product already added');
+        }
         const newProduct = await products.create({ name, price });
         return res.json({
-            status: "Produuct added successfully",
+            status: "Product added successfully",
             newProduct
         }); 
     } catch (error) {

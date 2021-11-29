@@ -7,47 +7,28 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
+import {cart} from '../Redux/selectors';
+import { useDispatch, useSelector } from "react-redux";
 
-function createData(productName, quantity, price) {
-  return { productName, quantity, price};
-}
-
-const productsAdded = [
-  {name: 'Bike', quantity: 1 , price: 100},
-  {name: 'TV', quantity: 2, price: 200},
-  {name: 'Album', quantity: 4, price: 10},
-  {name: 'Book', quantity: 10, price: 5},
-  {name: 'Phone', quantity: 3, price: 500},
-  {name: 'Computer', quantity: 2, price: 25}
-];
-
-const fillTable = productsAdded.map((item) => {
-  return createData(item.name , item.quantity, item.price);
-});
-
-const total = fillTable.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
 
 export default function BasicTable() {
   const [clientMoney, setClientMoney] = React.useState(0);
-  /* const products = useSelector((state) => state.itemCounter.cart);
-  const cart = useSelector((state) => state.itemCounter.cart);
-  const dispatch = useDispatch();
+  const productsAdded = useSelector(cart);
+  const productsAddedUnique = [];
 
-  const cartUpdated = () => (products.map((elem) => {
-    if(cart.includes(elem.id)) {
-      let counter = 0; 
-      cart.map((element, index) => {
-        if(elem.id === element.quantity) {
-          counter += 1;
-          dispatch(updateCart({index: index, quantity: counter}));
-        }
+  function createData(productName, quantity, price) {
+    return { productName, quantity, price};
+  }
+  
+  productsAdded.map(x => productsAddedUnique.filter(a => a.name === x.name).length > 0 ? null : productsAddedUnique.push(x));
+
+  const fillTable = productsAddedUnique.map((item) => {
+    const itemsQuantity = productsAdded.filter((items) => {
+      return items.name === item.name;
       })
-    }
-  }));
-
-  React.useEffect(() => {
-    cartUpdated();
-  },[]) */
+    return createData(item.name , itemsQuantity.length, item.price);
+  });
+  const total = fillTable.map(({ price,quantity }) => price*quantity).reduce((sum, i) => sum + i, 0);
 
   return (
     <TableContainer component={Paper}>
@@ -69,7 +50,7 @@ export default function BasicTable() {
                 {row.productName}
               </TableCell>
               <TableCell align="right">{row.quantity}</TableCell>
-              <TableCell align="right">{row.price}</TableCell>
+              <TableCell align="right">{row.quantity * row.price}</TableCell>
             </TableRow>
           ))}
             <TableRow>
