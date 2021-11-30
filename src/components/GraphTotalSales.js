@@ -50,20 +50,9 @@ export default function Graph() {
       // eslint-disable-next-line
     }, [invoicesData]
   );
-  const salesCancelled = invoicesData.filter((status => status.status === false));
-  const salesFinished = invoicesData.filter((status => status.status === true));
+  const salesCancelled = invoicesData.filter((status => status.status === false)).length;
+  const salesFinished = invoicesData.filter((status => status.status === true)).length;
 
-  const totalMoneySalesCancelled = salesCancelled.map(({ products }) => products).map((item) => {
-    const total2 = item.map(({ price}) => price).reduce((sum, i) => sum + i, 0)
-    return total2;
-  });
-  const totalMoneySalesFinished = salesFinished.map(({ products }) => products).map((item) => {
-    const total2 = item.map(({ price}) => price).reduce((sum, i) => sum + i, 0)
-    return total2;
-  });
-
-  const labelSalesA = totalMoneySalesCancelled.reduce((sum, i) => sum + i, 0);
-  const labelSalesB = totalMoneySalesFinished.reduce((sum, i) => sum + i, 0);
  
   return (
       <div sx={{padding: "10px"}}>
@@ -72,12 +61,12 @@ export default function Graph() {
   datasets: [
     {
       label: 'Sales',
-      data: labels.map(() => labelSalesB),
+      data: labels.map(() => salesFinished),
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
     {
       label: 'Cancelled sales',
-      data: labels2.map(() => labelSalesA),
+      data: labels2.map(() => salesCancelled),
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },
   ],
