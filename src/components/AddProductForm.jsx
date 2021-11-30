@@ -4,14 +4,11 @@ import {Button} from '@mui/material';
 
 
 function LoginForm({productsAdded,error}) {
-    
     const[details,setDetails] = useState({ name: "", price: "" } );
-    
- 
+
     const submitHandler = e =>{
         e.preventDefault();
         productsAdded(details);
-        
     }
     
   return (

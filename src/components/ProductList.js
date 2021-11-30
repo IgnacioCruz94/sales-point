@@ -29,17 +29,12 @@ export default function ProductList() {
         () => new URLSearchParams(location.search).get("page"),
         [location.search]
     );
-    //const [page, setPage] = React.useState(currentPage ? Number(currentPage) : 1);
+
 
     const handleChange = (event, value) => {
       history.push(`${location.pathname}?page=${value}`);
       setPage(value);
   };
-
-  /* const handleAddButton = (event) => {
-      event.preventDefault();
-      dispatch(itemsAddedCounter());
-  }; */
     
     useEffect(() => {
       if (productsData.length === 0) {

@@ -99,7 +99,7 @@ export default function CollapsibleTable() {
       if(invoicesData.length === 0){
         dispatch(getInvoices());
       }
-      console.log(invoicesData)
+      // eslint-disable-next-line
     }, [invoicesData]
   );
 

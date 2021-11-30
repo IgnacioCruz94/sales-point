@@ -36,7 +36,7 @@ export default function BasicModal() {
           setError('Error: Product already in system')
         }    
   }
-
+  
   return (
     <div style={{margin:'0px 30px 30px 30px'}}>
       <Button onClick={handleOpen}>Add New Product</Button>
