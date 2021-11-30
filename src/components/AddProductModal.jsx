@@ -3,6 +3,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import ProductForm from './AddProductForm';
+import { AddProduct } from '../Redux/productsSlice';
+import { useDispatch,useSelector } from 'react-redux';
+import { selectProducts} from "../Redux/selectors";
 
 const style = {
   position: 'absolute',
@@ -18,10 +21,20 @@ const style = {
 
 export default function BasicModal() {
   const [open, setOpen] = React.useState(false);
+  const [error,setError] = React.useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const dispatch = useDispatch();
+  const productsData = useSelector(selectProducts);
+  
   const productsAdded = details =>{
-        setOpen(false)
+        if (productsData.filter(e => e.name === details.name).length === 0) {
+          dispatch(AddProduct(details));
+          setOpen(false);
+        }
+        else{
+          setError('Error: Product already in system')
+        }    
   }
 
   return (
@@ -34,7 +47,7 @@ export default function BasicModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <ProductForm productsAdded = {productsAdded}  />
+          <ProductForm productsAdded = {productsAdded} error = {error} />
         </Box>
       </Modal>
     </div>

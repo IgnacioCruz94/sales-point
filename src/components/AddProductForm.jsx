@@ -1,18 +1,17 @@
 import React,{useState} from 'react';
 import TextField from '@mui/material/TextField';
 import {Button} from '@mui/material';
-import { AddProduct } from '../Redux/productsSlice';
-import { useDispatch } from 'react-redux';
 
-function LoginForm({productsAdded}) {
+
+function LoginForm({productsAdded,error}) {
     
     const[details,setDetails] = useState({ name: "", price: "" } );
-    const dispatch = useDispatch();
+    
  
     const submitHandler = e =>{
         e.preventDefault();
         productsAdded(details);
-        dispatch(AddProduct(details));
+        
     }
     
   return (
@@ -24,6 +23,7 @@ function LoginForm({productsAdded}) {
                 gap:"15px"
             }}>
                 <h2>New Product Info</h2>
+                {(error !== "")?(<div className="error">{error}</div>):""}
                 <div className="form-group">
                     <TextField required type="text" label="Name" id="name" onChange = {e => setDetails({...details, name: e.target.value})}  value={details.name} />
                 </div>

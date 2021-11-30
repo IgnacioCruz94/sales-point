@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {itemsAddedCounter} from "../Redux/itemsAddedSlice";
 import { useHistory, useLocation } from "react-router";
 import { useEffect } from "react";
-import { selectProducts } from "../Redux/selectors";
+import { selectProducts} from "../Redux/selectors";
 import { getProducts } from "../Redux/productsThunks";
 import Loading from "./Loading";
 import { cartProducts } from "../Redux/cartProductsSlice";
