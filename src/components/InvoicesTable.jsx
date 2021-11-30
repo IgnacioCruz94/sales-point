@@ -1,5 +1,4 @@
 import * as React from 'react';
-//import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
@@ -17,8 +16,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {getInvoices} from '../Redux/invoicesThunks';
 import { useDispatch, useSelector } from "react-redux";
-import {selectInvoicesProducts,selectInvoicesProductsZero} from "../Redux/selectors";
-
+import { selectInvoicesProducts } from "../Redux/selectors";
 
 function createData(id, date, status,products) {
   return {
@@ -29,48 +27,9 @@ function createData(id, date, status,products) {
   };
 }
 
-
-
-const productsAdded = [[
-    {name: 'Bike', quantity: 1 , price: 100},
-    {name: 'TV', quantity: 2, price: 200},
-    {name: 'Album', quantity: 4, price: 10},
-    {name: 'Book', quantity: 10, price: 5},
-    {name: 'Phone', quantity: 3, price: 500},
-    {name: 'Computer', quantity: 2, price: 25}
-  ],
-  [{name: 'Bike', quantity: 1 , price: 100},
-  {name: 'TV', quantity: 2, price: 200},
-  {name: 'Computer', quantity: 2, price: 25}
-  ],[
-    {name: 'Book', quantity: 10, price: 5},
-    {name: 'Phone', quantity: 3, price: 500},
-    {name: 'Computer', quantity: 2, price: 25}
-  ],[
-    {name: 'Computer', quantity: 2, price: 25}
-  ]
-];
-
-
-  const purchasesMade = [
-    {id: 1, date: '2020-01-05' , status: 'finished',products: productsAdded[0]},
-    {id: 2, date: '2020-01-06' , status: 'finished',products: productsAdded[1]},
-    {id: 3, date: '2020-01-07' , status: 'canceled',products: productsAdded[2]},
-    {id: 4, date: '2020-01-07' , status: 'finished',products: productsAdded[3]}
-
-  ];
-
-
-/*   const fillTable = purchasesMade.map((item) => {
-    return createData(item.id , item.date, item.status, item.products);
-  
-});  */
-
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
-
-  
 
   return (
     <React.Fragment>
@@ -88,12 +47,12 @@ function Row(props) {
           {row.id}
         </TableCell>
         <TableCell align="center">{row.date}</TableCell>
-        <TableCell align="center">{row.status}</TableCell>
-        <TableCell align="center"><Button>Cancel Purchase</Button></TableCell>
+        <TableCell align="center">{(row.status === "true")?"finished":"canceled"}</TableCell>
+        <TableCell align="center"><Button >Cancel Purchase</Button></TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse key={row._id} in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
                 History
@@ -108,9 +67,9 @@ function Row(props) {
                 </TableHead>
                 <TableBody>
                   {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.name}>
+                    <TableRow key={historyRow.productName}>
                       <TableCell component="th" scope="row">
-                        {historyRow.name}
+                        {historyRow.productName}
                       </TableCell>
                       <TableCell align="center">{historyRow.quantity}</TableCell>
                       <TableCell align="right">{historyRow.price * historyRow.quantity }</TableCell>
@@ -132,27 +91,7 @@ function Row(props) {
   );
 }
 
-/* Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
-}; */
-
-
 export default function CollapsibleTable() {
-  const [charge, setCharge] = React.useState([]); 
   const dispatch = useDispatch();
   const invoicesData = useSelector(selectInvoicesProducts);
   React.useEffect(
@@ -163,10 +102,6 @@ export default function CollapsibleTable() {
       console.log(invoicesData)
     }, [invoicesData]
   );
-  
-  
-  console.log(invoicesData)
-
 
 if (invoicesData.length === 0) {
   return (
@@ -175,8 +110,8 @@ if (invoicesData.length === 0) {
     </div>
   );
 }
-const fillTable = invoicesData.map((item) => {
-    return createData(item.id, item.status, item.products);
+const fillTable = invoicesData.map((item, index) => {
+    return createData(index, item.created_at, item.status.toString(), item.products);
 }); 
   return (
     <TableContainer component={Paper}>
@@ -192,7 +127,7 @@ const fillTable = invoicesData.map((item) => {
         </TableHead>
         <TableBody>
           {fillTable.map((row) => (
-            <Row key={row.id} row={row} />
+            <Row key={row._id} row={row} />
           ))}
         </TableBody>
       </Table>
