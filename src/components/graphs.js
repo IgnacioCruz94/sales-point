@@ -10,6 +10,9 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import faker from 'faker';
+import { useDispatch, useSelector } from "react-redux";
+import { selectInvoicesProducts } from "../Redux/selectors";
+import { getInvoices } from '../Redux/invoicesThunks';
 
 ChartJS.register(
   CategoryScale,
@@ -53,8 +56,22 @@ export const data = {
 };
 
 export default function Graph() {
+  const invoicesData = useSelector(selectInvoicesProducts);
+  const dispatch = useDispatch();
+  React.useEffect(
+    () =>{
+      if(invoicesData.length === 0){
+        dispatch(getInvoices());
+      }
+      console.log(invoicesData)
+      // eslint-disable-next-line
+    }, [invoicesData]
+  );
+  //const total = invoicesData.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+  const total = invoicesData.map(({ products }) => products).map(elemento => elemento)
+  //console.log(total);
   return (
-      <div sx={{padding: "200px"}}>
+      <div sx={{padding: "10px"}}>
           <Bar options={options} data={data} />
       </div>
   

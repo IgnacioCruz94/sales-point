@@ -17,6 +17,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {getInvoices} from '../Redux/invoicesThunks';
 import { useDispatch, useSelector } from "react-redux";
 import { selectInvoicesProducts } from "../Redux/selectors";
+import { UpdateInvoiceStatus } from "../Redux/invoicesSlice";
 
 function createData(id, date, status,products) {
   return {
@@ -30,6 +31,8 @@ function createData(id, date, status,products) {
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  const [statusValues, setStatusValues] = React.useState(row.status);
+  const dispatch = useDispatch();
 
   return (
     <React.Fragment>
@@ -47,8 +50,12 @@ function Row(props) {
           {row.id}
         </TableCell>
         <TableCell align="center">{row.date}</TableCell>
-        <TableCell align="center">{(row.status === "true")?"finished":"canceled"}</TableCell>
-        <TableCell align="center"><Button >Cancel Purchase</Button></TableCell>
+        <TableCell align="center">{(statusValues === true)?"finished":"canceled"}</TableCell>
+        <TableCell align="center"><Button disabled={!statusValues} onClick={() => {
+          setStatusValues(false)
+          console.log(row.id)
+          dispatch(UpdateInvoiceStatus(row.id))
+          }}>Cancel Purchase</Button></TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -110,8 +117,8 @@ if (invoicesData.length === 0) {
     </div>
   );
 }
-const fillTable = invoicesData.map((item, index) => {
-    return createData(index, item.created_at, item.status, item.products);
+const fillTable = invoicesData.map((item) => {
+    return createData(item._id, item.created_at, item.status, item.products);
 }); 
   return (
     <TableContainer component={Paper}>

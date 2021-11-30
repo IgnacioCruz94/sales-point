@@ -9,7 +9,8 @@ const {
     GetController, 
     PostController,
     PostControllerInvoice,
-    GetControllerInvoices
+    GetControllerInvoices,
+    UpdateControllerInvoice,
 } = require('../controllers');
 
 // All resources
@@ -17,6 +18,7 @@ ProductsResources.get('/products', GetController.getAll);
 ProductsResources.post('/products', PostController.createProduct);
 InvoicesResources.post('/invoices', PostControllerInvoice.createInvoice);
 InvoicesResources.get('/invoices', GetControllerInvoices.getAllInvoices);
+InvoicesResources.put('/invoices/:id', UpdateControllerInvoice.updateInvoiceStatus);
 
 // All routes
 router.use('/api', ProductsResources, InvoicesResources);

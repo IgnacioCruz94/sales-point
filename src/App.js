@@ -7,7 +7,7 @@ import Home from './views/Home';
 import NavBar from './components/NavBar';
 import Invoices from "./views/Invoices";
 import Cart from "./views/Cart";
-import Graph from "./components/graphs";
+import Dashboard from "./views/Dashboard";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
       <Route exact path="/products" component={Products} />
       <Route exact path="/invoices" component={Invoices} />
       <Route exact path="/cart" component={Cart} />
-      <Route exact path="/dashboard" component={Graph} />
+      <Route exact path="/dashboard" component={Dashboard} />
     </Switch>
     <Footer />
     </BrowserRouter>

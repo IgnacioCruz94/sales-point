@@ -21,7 +21,16 @@ export const invoicesSlice = createSlice({
                 }
             );
             state.invoices = [...state.invoices];
-        }
+        },
+        UpdateInvoiceStatus:(state,action) => {
+            console.log(action.payload)
+            Axios.put(
+                `http://localhost:5000/api/invoices/${action.payload}`, 
+                {
+                    status: false,
+                }
+            );
+        },
     },
     extraReducers: (builder) =>
     builder
@@ -32,6 +41,6 @@ export const invoicesSlice = createSlice({
 
 });
 
-export const { AddInvoice } = invoicesSlice.actions;
+export const { AddInvoice, UpdateInvoiceStatus } = invoicesSlice.actions;
 
 export default invoicesSlice.reducer;
