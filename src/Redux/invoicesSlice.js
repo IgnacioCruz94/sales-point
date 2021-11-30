@@ -14,7 +14,7 @@ export const invoicesSlice = createSlice({
             Axios.post(
                 'http://localhost:5000/api/invoices', 
                 {
-                    products: [action.payload],
+                    products: action.payload,
                     status: true
                     
                 }
@@ -25,7 +25,7 @@ export const invoicesSlice = createSlice({
     extraReducers: (builder) =>
     builder
       .addCase(getInvoices.fulfilled, (state, action) => {
-          state.invoices = [...state.invoices, action.payload];
+          state.invoices = [...state.invoices, ...action.payload];
       })
 
 });

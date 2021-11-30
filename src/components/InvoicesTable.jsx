@@ -12,11 +12,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import Loading from './Loading'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {getInvoices} from '../Redux/invoicesThunks';
 import { useDispatch, useSelector } from "react-redux";
-
+import {selectInvoicesProducts,selectInvoicesProductsZero} from "../Redux/selectors";
 
 
 function createData(id, date, status,products) {
@@ -60,17 +61,16 @@ const productsAdded = [[
   ];
 
 
-  const fillTable = purchasesMade.map((item) => {
+/*   const fillTable = purchasesMade.map((item) => {
     return createData(item.id , item.date, item.status, item.products);
   
-});
+});  */
 
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
-  const dispatch = useDispatch();
 
-  console.log(dispatch(getInvoices()));
+  
 
   return (
     <React.Fragment>
@@ -152,6 +152,32 @@ function Row(props) {
 
 
 export default function CollapsibleTable() {
+  const [charge, setCharge] = React.useState([]); 
+  const dispatch = useDispatch();
+  const invoicesData = useSelector(selectInvoicesProducts);
+  React.useEffect(
+    () =>{
+      if(invoicesData.length === 0){
+        dispatch(getInvoices());
+      }
+      console.log(invoicesData)
+    }, [invoicesData]
+  );
+  
+  
+  console.log(invoicesData)
+
+
+if (invoicesData.length === 0) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <Loading/>
+    </div>
+  );
+}
+const fillTable = invoicesData.map((item) => {
+    return createData(item.id, item.status, item.products);
+}); 
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
