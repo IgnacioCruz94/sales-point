@@ -1,11 +1,12 @@
-const products = require('../models-db/products');
+const invoices = require('../models-db/invoices');
 
-// Fecth all products
-const getAll = async (req, res) => {
+// Fecth all invoices
+const getAllInvoices = async (req, res) => {
     try {
-        /* const items = await products.find({})
-    .select('_id name price') */
-    await products.find({})           
+
+        const Invoices = await invoices.find({})
+    /* .select('_id name price') */
+    /* await products.find({})           
     .select('_id name price')
     .then(items => {
         const products = {
@@ -19,13 +20,13 @@ const getAll = async (req, res) => {
             })
         }
         res.send(products);
-    });  
-    //return res.send(items)  
+    }); */  
+        return res.send(Invoices);  
     } catch (error) {
         res.status(500).send(error);
     }
 };
 
 module.exports = {
-    getAll,
+    getAllInvoices,
 };
