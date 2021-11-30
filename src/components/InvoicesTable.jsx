@@ -14,6 +14,10 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import {getInvoices} from '../Redux/invoicesThunks';
+import { useDispatch, useSelector } from "react-redux";
+
+
 
 function createData(id, date, status,products) {
   return {
@@ -23,6 +27,8 @@ function createData(id, date, status,products) {
     history: products,
   };
 }
+
+
 
 const productsAdded = [[
     {name: 'Bike', quantity: 1 , price: 100},
@@ -62,6 +68,9 @@ const productsAdded = [[
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
+
+  console.log(dispatch(getInvoices()));
 
   return (
     <React.Fragment>

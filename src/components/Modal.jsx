@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { useDispatch} from 'react-redux';
+import { AddInvoice } from '../Redux/invoicesSlice';
 
 const style = {
   position: 'absolute',
@@ -16,13 +18,14 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
+export default function BasicModal({purchase}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const dispatch = useDispatch();
 
   return (
-    <div style={{margin:'0px 30px 30px 30px', display: "flex", justifyContent: "center"}}>
+    <div style={{margin:'30px 30px 30px 30px', display: "flex", justifyContent: "center"}}>
       <Button onClick={handleOpen} sx={{alignSelf: "center"}}>Finish</Button>
       <Modal
         open={open}
@@ -37,7 +40,8 @@ export default function BasicModal() {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Successull Purchase
           </Typography>
-          <Button onClick={handleClose}>Close</Button>
+          <Button 
+          onClick={()=>{dispatch(AddInvoice(purchase)) }}>Close</Button>
         </Box>
       </Modal>
     </div>

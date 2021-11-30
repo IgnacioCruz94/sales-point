@@ -1,44 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
-//import { getProducts } from "./productsThunks";
+import { getInvoices } from "./invoicesThunks";
 import Axios from "axios";
 
 const initialState = {
-    invoices: [],
-    newInvoice: [],
-    isLoading: true,
-    hasError: false,
+    invoices: []
 };
 
 export const invoicesSlice = createSlice({
-    name: "Products",
+    name: "Invoices",
     initialState,
     reducers: {
         AddInvoice: (state, action) => {
             Axios.post(
                 'http://localhost:5000/api/invoices', 
                 {
-                    name: action.payload.name, 
-                    price: Number(action.payload.price) 
+                    products: [action.payload],
+                    status: true
+                    
                 }
             );
-            state.newProduct = {name: action.payload.name, price: Number(action.payload.price) };
-            state.products = [...state.products, state.newProduct];
+            state.invoices = [action.payload];
         }
     },
-    /* extraReducers: (builder) =>
+    extraReducers: (builder) =>
     builder
-      .addCase(getProducts.pending, (state) => {
-          state.isLoading = true;
-          state.hasError = false;
+      .addCase(getInvoices.fulfilled, (state, action) => {
+          state.invoices = [...state.invoices, action.payload];
       })
-      .addCase(getProducts.fulfilled, (state, action) => {
-          state.products = [...state.products, ...action.payload];
-          state.isLoading = false;
-      })
-      .addCase(getProducts.rejected, (state) => {
-          state.isLoading = false;
-          state.hasError = true;
-      }) */
+
 });
 
 export const { AddInvoice } = invoicesSlice.actions;

@@ -125,7 +125,6 @@ export default function ProductList() {
                   onClick={() => {
                     dispatch(itemsAddedCounter(item))
                     dispatch(cartProducts(item))
-                    console.log(item.id)
                   }}
                 >
                   Add

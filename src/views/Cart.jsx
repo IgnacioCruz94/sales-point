@@ -1,5 +1,5 @@
 import Table from '../components/Table';
-import ModalCart from '../components/Modal';
+/* import ModalCart from '../components/Modal'; */
 import './Cart.css';
 function Cart() {
   return (
@@ -7,7 +7,7 @@ function Cart() {
         <section>
             <Table/>
         </section>
-        <ModalCart/>      
+        {/* <ModalCart/>   */}    
     </div>
   );
 }

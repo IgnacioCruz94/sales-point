@@ -1,12 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Axios from "axios";
 
-export const getProducts = createAsyncThunk("products/fetchProductsState", async () => {
+export const getInvoices = createAsyncThunk("products/fetchProductsState", async () => {
   const resp = await Axios.get(
-    `http://localhost:5000/api/products`
+    `http://localhost:5000/api/invoices`
   ).then((resp) => (
-    resp.data.ProductsList
+    
+    resp.data.products
     ));
   // The value we return becomes the `fulfilled` action payload
+  
   return resp;
 });
