@@ -118,7 +118,7 @@ export default function ProductList() {
                     }
                   }}
                   onClick={() => {
-                    dispatch(itemsAddedCounter(item))
+                    dispatch(itemsAddedCounter())
                     dispatch(cartProducts(item))
                   }}
                 >

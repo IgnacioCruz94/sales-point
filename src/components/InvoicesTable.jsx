@@ -72,13 +72,13 @@ function Row(props) {
                         {historyRow.productName}
                       </TableCell>
                       <TableCell align="center">{historyRow.quantity}</TableCell>
-                      <TableCell align="right">{historyRow.price * historyRow.quantity }</TableCell>
+                      <TableCell align="right">{historyRow.price }</TableCell>
                     </TableRow>
                   ))}
                     <TableRow>
                       <TableCell rowSpan={3} />
                       <TableCell align="right" colSpan={1}>Total</TableCell>
-                      <TableCell align="right">{row.history.map(({ price,quantity }) => price*quantity).reduce((sum, i) => sum + i, 0)
+                      <TableCell align="right">{row.history.map(({ price }) => price).reduce((sum, i) => sum + i, 0)
                       }</TableCell>
                     </TableRow>
                 </TableBody>
@@ -111,7 +111,7 @@ if (invoicesData.length === 0) {
   );
 }
 const fillTable = invoicesData.map((item, index) => {
-    return createData(index, item.created_at, item.status.toString(), item.products);
+    return createData(index, item.created_at, item.status, item.products);
 }); 
   return (
     <TableContainer component={Paper}>
@@ -127,7 +127,9 @@ const fillTable = invoicesData.map((item, index) => {
         </TableHead>
         <TableBody>
           {fillTable.map((row) => (
-            <Row key={row._id} row={row} />
+            
+            <Row key={row.id} row={row} />
+            
           ))}
         </TableBody>
       </Table>

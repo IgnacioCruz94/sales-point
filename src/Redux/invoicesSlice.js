@@ -6,6 +6,7 @@ const initialState = {
     invoices: []
 };
 
+
 export const invoicesSlice = createSlice({
     name: "Invoices",
     initialState,
@@ -19,12 +20,13 @@ export const invoicesSlice = createSlice({
                     
                 }
             );
-            state.invoices = [action.payload];
+            state.invoices = [...state.invoices];
         }
     },
     extraReducers: (builder) =>
     builder
       .addCase(getInvoices.fulfilled, (state, action) => {
+          state.invoices = [];
           state.invoices = [...state.invoices, ...action.payload];
       })
 

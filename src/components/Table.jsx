@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import {cart} from '../Redux/selectors';
-import { useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import ModalCart from '../components/Modal';
 
 
@@ -29,16 +29,16 @@ export default function BasicTable() {
       })
     return createData(item.name , itemsQuantity.length, item.price * itemsQuantity.length);
   });
-  const total = fillTable.map(({ price,quantity }) => price*quantity).reduce((sum, i) => sum + i, 0);
+  const total = fillTable.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
 
-  return (
+  return ( 
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Product Name</TableCell>
             <TableCell align="right">Quantity</TableCell>
-            <TableCell align="right">Price&nbsp;(MXN)</TableCell>
+            <TableCell align="right">Total Price&nbsp;(MXN)</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

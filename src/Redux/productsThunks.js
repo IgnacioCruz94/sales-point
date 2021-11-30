@@ -7,6 +7,5 @@ export const getProducts = createAsyncThunk("products/fetchProductsState", async
   ).then((resp) => (
     resp.data.ProductsList
     ));
-  // The value we return becomes the `fulfilled` action payload
   return resp;
 });

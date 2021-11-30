@@ -12,9 +12,14 @@ export const itemsSlice = createSlice({
             state.itemsAdded += 1;
             
         },
+        cleanCounter:
+        (state) => {
+            state.itemsAdded = 0;
+            
+        }
     },
 });
 
-export const { itemsAddedCounter } = itemsSlice.actions;
+export const { itemsAddedCounter, cleanCounter } = itemsSlice.actions;
 
 export default itemsSlice.reducer;

@@ -8,7 +8,6 @@ export const getInvoices = createAsyncThunk("invoices/fetchProductsState", async
     
     resp.data
     ));
-  // The value we return becomes the `fulfilled` action payload
   
   return resp;
 });

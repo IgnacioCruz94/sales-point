@@ -5,6 +5,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useDispatch} from 'react-redux';
 import { AddInvoice } from '../Redux/invoicesSlice';
+import {getInvoices} from '../Redux/invoicesThunks';
+import {cleanCart} from '../Redux/cartProductsSlice';
+import {cleanCounter} from '../Redux/itemsAddedSlice';
 
 const style = {
   position: 'absolute',
@@ -24,6 +27,18 @@ export default function BasicModal({purchase}) {
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
 
+  React.useEffect(() => {
+    dispatch(getInvoices())
+    // eslint-disable-next-line
+  }, [open]);
+
+  const refetchInvoices = () => {
+    dispatch(AddInvoice(purchase))
+    dispatch(cleanCart())
+    dispatch(cleanCounter())
+    setOpen(false)
+  };
+
   return (
     <div style={{margin:'30px 30px 30px 30px', display: "flex", justifyContent: "center"}}>
       <Button onClick={handleOpen} sx={{alignSelf: "center"}}>Finish</Button>
@@ -41,7 +56,7 @@ export default function BasicModal({purchase}) {
             Successull Purchase
           </Typography>
           <Button 
-          onClick={()=>{dispatch(AddInvoice(purchase)) }}>Close</Button>
+          onClick={refetchInvoices}>Close</Button>
         </Box>
       </Modal>
     </div>
