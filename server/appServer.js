@@ -11,7 +11,6 @@ app.use(express.json());
 
 // Databases connection
 const initializationDb = require('./connectionDB/connectionMongoDb');
-//const { dirname } = require('path');
 initializationDb.initDataBases();
 
 // Define routes

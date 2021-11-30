@@ -3,7 +3,6 @@ const products = require('../models-db/products');
 // Add a new product
 const createProduct = async (req, res) => {
     const { name, price } = req.body;
-
     try {
         const isProductAlreadyAdded = await products.find({name: name}).exec();
         if(isProductAlreadyAdded.length > 0){
